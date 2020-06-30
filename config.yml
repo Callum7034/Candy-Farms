@@ -1,0 +1,242 @@
+##########################################
+#                                        #
+#              CandyFarms                #
+#           Made by Callum703            #
+#                                        #
+##########################################
+
+FarmItem:
+  Name: '&6&l[!] &eFarm Plot &7(( Place me ))'
+  Material: DAYLIGHT_DETECTOR 
+  Glow: True
+  Lore:
+    - ' '
+    - '    &a- This is a special farm plot'
+    - '       &7~ you can plant &fcandy &7here'
+    - ' '
+
+#Block that is placed as a ghost to show the player where the farm will be
+GhostBlockFill: STAINED_GLASS
+
+#Farm Placement menu
+placementConfirm: '&6&l[!] &aConfirm placement'
+placementCancel: '&6&l[!] &cCancel placement'
+
+
+#Time to take before server grows each crop. (In ticks)
+growDelay: 100
+
+
+#GUI that opens when you click on the farm block
+Farm_Menu:
+  GUIName: '&8Farm Menu'
+  #Valid values for GUI Size are 9, 18, 27, 36, 45 and 54
+  GUISize: 27 
+  GUIFillerItem: STAINED_GLASS_PANE
+  GUIFillerItemDamage: 15 #Set to 0 if not using
+
+  #Information Item
+  InfoItem: WRITTEN_BOOK
+  InfoItemName: '&6&l[!] &eFarm Information'
+  InfoItemSlot: 10
+  
+  #Members Item
+  MembersName: '&6&l[!] &eManage Members'
+  MembersItemSlot: 13
+  
+  #Minion Item
+  MinionItem: DRAGON_EGG
+  MinionItemName: '&6&l[!] &eManage Minion'
+  MinionItemSlot: 14
+  
+  #Storage Item
+  StorageItem: CHEST
+  StorageItemName: '&6&l[!] &eStorage'
+  StorageItemSlot: 15
+  
+  StorageGUI:
+    GUIName: '&a&lStorage'
+    GUISize: 9
+    GUIFillerItem: STAINED_GLASS_PANE
+    GUIFillerItemDamage: 15 #Set to 0 if not using
+    #This is the lore that is added to each item
+    CandyItemsExtraLore: '&9Amount: &e%amount%'
+    CandyItemsExtraLoreGet: '&7Right click to get candy'
+    #Slot that the items start from
+    StartSlot: 2
+    
+    
+  MembersMenu:
+    MenuName: '&6Members'
+    
+    AddPlayerItem: ANVIL
+    AddPlayer: '&5Add Member'
+    
+    ExitItem: ARROW
+    Exit: '&9Exit Menu'
+    
+    HeadLore: '&cRight click to remove'
+    OwnerHeadLore: '&bOwner of farm'
+    
+  #Manage Minions here
+  MinionGUI:
+    GUIName: '&a&lManage Minion'
+    GUISize: 27
+    GUIFillerItem: STAINED_GLASS_PANE
+    GUIFillerItemDamage: 15 #Set to 0 if not using
+    
+    MinionAdd:
+      Item: EMERALD_BLOCK
+      ItemDamage: 0
+      ItemName: '&a&lAdd Minion'
+      Slot: 11
+      Lore:
+        - ' '
+    MinionRemove:
+      Item: REDSTONE_BLOCK
+      ItemDamage: 0
+      ItemName: '&c&lRemove Minion'
+      Slot: 15
+      Lore:
+        - ' '
+    #This is the display of if you have or havent added a minion
+    CurrentMinion:
+      Slot: 13
+      #What Shows up if you havent added a minion
+      NotAdded: 
+        Item: BARRIER
+        ItemDamage: 0
+        ItemName: '&cNo Minion'
+        Lore:
+          - ' '
+      #What shows up if you do have a minion on this farm
+      Added: 
+        Item: DRAGON_EGG
+        ItemDamage: 0
+        ItemName: '&4&l[!] &eFarmer Minion'
+        Lore:
+          - ' '    
+          
+          
+  
+  
+  
+  #Remove Farm Item
+  DeleteItem: BARRIER
+  DeleteItemName: '&4&l[!] &cRemove Farm'
+  DeleteItemSlot: 16
+  
+#Seed Configurations
+SeedConfigs:
+  #The Chance that when you break a fully growed crop you will get the seed back (Set to 0 to disable)
+  SeedBackChance: 25 
+  #The rarities for each seed
+  Sections:
+    - 'Common'
+    - 'Rare'
+  #Make sure that the sections & rarities are all spelt the same
+  Prices: #The price of the box in tokens. Also what the minion buys each seed for
+    Common: 100
+    Rare: 200
+    Price: '&9Price: &e%price% &7tokens'
+  SeedBoxes: #Use %name% for Rarity/Sections. Use &seedname& for seed name
+    Item: CHEST
+    Glow: true
+    Name: '&6&l[!] &e%name% Seed Box &7(( Right Click ))'
+    Lore:
+        - ' '
+        - '&7----------------------------'
+        - '&9This is a %name% seed box'
+        - ' '
+        - '&9Possible Seeds:'
+        - '&e%seedname%' #This line will repeat for each seed
+        - '&7----------------------------'
+        - ' '
+#Acutal Seeds
+Seeds:
+  Common: #Make sure this is defined in the section above (and the same)
+    1:
+      ItemName: '&6&l[!] &eChocolate Seed &7(( Common ))'
+      SeedName: Chocolate
+      ItemType: SEEDS
+      Glow: false
+      Lore:
+        - ' '
+        - '&7----------------------------'
+        - '&9Seed: &eChocolate'
+        - '&9Rarity: &eCommon'
+        - '&7----------------------------'
+        - ' '
+  Rare:
+    1:
+      ItemName: '&6&l[!] &eFruity Candy Seed &7(( Rare ))'
+      SeedName: Fruity_Candy
+      ItemType: SEEDS
+      Glow: true
+      Lore:
+        - ' '
+        - '&7----------------------------'
+        - '&9Seed: &eFruity Candy'
+        - '&9Rarity: &eRare'
+        - '&7----------------------------'
+        - ' '
+
+#These are the items given to the player when they break a fully grown crop
+CandyItems:
+  Chocolate: #Make sure this is the same as a SeedName
+    ItemName: '&6&l[!] &eChocolate &7(( Eat me ))'
+    ItemType: COOKIE
+    Glow: false
+    Effects: #See all effects at https://helpch.at/docs/1.8.8/index.html?org/bukkit/potion/PotionEffectType.html
+      INCREASE_DAMAGE:
+        Time: 30 #In seconds
+        Power: 1
+      SPEED:
+        Time: 30
+        Power: 2
+    Lore:
+      - ' '
+      - '&7----------------------------'
+      - '&9Candy: &eChocolate'
+      - '&9Effects:'
+      - ' &7- &eSpeed'
+      - ' &7- &eStrength'
+      - '&7----------------------------'
+      - ' '
+  Fruity_Candy: 
+    ItemName: '&6&l[!] &eFruity Candy &7(( Eat me ))'
+    ItemType: APPLE
+    Glow: true
+    Effects: 
+      REGENERATION:
+        Time: 30 
+        Power: 1
+      SPEED:
+        Time: 30
+        Power: 2
+    Lore:
+        - ' '
+        - '&7----------------------------'
+        - '&9Candy: &eFruity Candy'
+        - '&9Effects:'
+        - ' &7- &eSpeed'
+        - ' &7- &eRegeneration'
+        - '&7----------------------------'
+        - ' '
+        
+        
+#Minion Configurations
+MinionConfigs:
+  ItemName: '&6&l[!] &eMinion &7(( Farmer ))'
+  ItemType: DRAGON_EGG
+  Glow: true
+  Lore:
+    - ' '
+    - '&7----------------------------'
+    - '&9Farm Minion'
+    - '&9Usage:'
+    - '&7- &eOpen Farm Minion GUI'
+    - '&7- &eClick Add Minion'
+    - '&7- &eClick on this item'
+    - '&7----------------------------'
+    - ' '

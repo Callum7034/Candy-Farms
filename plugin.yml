@@ -1,0 +1,13 @@
+name: MineRaidsCandyFarms
+main: com.rcallum.CFarms.CandyFarms
+description: Made by Callum703
+version: 1.0
+author: Callum703
+depend: [WorldEdit, WorldGuard]
+
+commands:
+  CFarms:
+    description: Main Commands
+  drugshop:
+    description: DrugShop commands
+    aliases: [dshop, ds]

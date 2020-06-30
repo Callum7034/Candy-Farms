@@ -1,0 +1,56 @@
+#Token shop config. 
+#This is only the GUIS
+#The item configs (eg. MinionItem) will be in "config.yml"
+
+
+MainMenu:
+  GUIName: '&5Token Shop'
+  #Valid values for GUI Size are 9, 18, 27, 36, 45 and 54
+  GUISize: 9
+  FillerItem: STAINED_GLASS_PANE
+  FillerItemDamage: 14 #Set to 0 if not using
+  
+  #This is the item in the main menu
+  #To configure the actual shop scroll down in this config
+  SeedBox:
+    Item: CHEST
+    ItemName: '&6&l[!] &aSeed Box Shop'
+    Slot: 6
+    Lore:
+      - ' '
+      - '    &a- This is the seed box shop'
+      - '       &7~ you can open the boxes to get &fseeds'
+      - ' '
+  
+  
+  #This is the item in the main menu
+  #To configure the actual shop scroll down in this config
+  Minion:
+    Item: DRAGON_EGG
+    ItemName: '&6&l[!] &eBuy &e&lMinion'
+    Slot: 2
+    #The Price to Buy the minion
+    Price: 10000
+    Lore:
+      - ' &9Price: &e%price% &7tokens'
+      - ' '
+      - '&7-----------------------------'
+      - ' &eThe farm &fMinion &eis a helpful accessory'
+      - '   &ePut him in your farm and he will automatically'
+      - '   &eHarvest and plant the candy seeds'
+      - '&7-----------------------------'
+      - ' '
+      
+#This is the GUI for the buying of seed boxes
+SeedBoxMenu:
+  GUIName: '&6Seed Box Shop'
+  GUISize: 18
+  
+  #These are the slots where the boxes will be placed
+  #If there is more than the amount of boxes nothing bad will happen
+  #If there is less slots allocated than the amount of boxes then some boxes wont be shown in the GUI
+  StartSlot: 3
+  EndSlot: 5
+  
+  FillerItem: STAINED_GLASS_PANE
+  FillerItemDamage: 14 #Set to 0 if not using
