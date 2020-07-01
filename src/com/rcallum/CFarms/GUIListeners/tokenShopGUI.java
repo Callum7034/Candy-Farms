@@ -55,7 +55,7 @@ public class tokenShopGUI implements Listener {
 					}
 					if (itemName.equalsIgnoreCase(sec.getString("Minion.ItemName"))) {
 						int price = Integer.valueOf(NBTHandler.getInstance().getNBT(e.getCurrentItem(), "price"));
-						if (TokenHook.getInstance().withdrawTokens(p, price)) {
+						if (TokenHook.getInstance().withdrawTokens(p.getUniqueId(), price)) {
 							p.getInventory().addItem(MinionItem.minionItem);
 							p.sendMessage(ChatColor.translateAlternateColorCodes('&',
 									CandyFarms.messages.getString("successfulMinionPurchase").replaceAll("%price%", price+"")));
@@ -81,7 +81,7 @@ public class tokenShopGUI implements Listener {
 					slot = slot - start;
 					ItemStack box = boxes.get(slot);
 					int price = Integer.valueOf(NBTHandler.getInstance().getNBT(box, "price"));
-					if (TokenHook.getInstance().withdrawTokens(p, price)) {
+					if (TokenHook.getInstance().withdrawTokens(p.getUniqueId(), price)) {
 						p.getInventory().addItem(box);
 						p.sendMessage(ChatColor.translateAlternateColorCodes('&',
 								CandyFarms.messages.getString("successfulBoxPurchase").replaceAll("%price%", price+"")));

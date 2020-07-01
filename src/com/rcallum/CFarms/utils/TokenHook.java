@@ -2,8 +2,6 @@ package com.rcallum.CFarms.utils;
 
 import java.util.UUID;
 
-import org.bukkit.entity.Player;
-
 public class TokenHook {
 	private static TokenHook instance;
 
@@ -18,8 +16,8 @@ public class TokenHook {
 		return instance;
 	}
 	
-	public boolean withdrawTokens(Player p, int amount) {
-		UUID uuid = p.getUniqueId();
+	public boolean withdrawTokens(UUID player, int amount) {
+		
 		/*
 		 * 
 		 * 
@@ -34,9 +32,10 @@ public class TokenHook {
 		
 		if (tokens >= amount) {
 			tokens = tokens - amount;
-			p.sendMessage("Player: " + uuid.toString());
-			p.sendMessage("Start Amount: " + 100000);
-			p.sendMessage("After cost: " + tokens);
+			System.out.print("Purchase of " + amount + " UUID: " + player.toString());
+			//p.sendMessage("Player: " + player.toString());
+			//p.sendMessage("Start Amount: " + 100000);
+			//p.sendMessage("After cost: " + tokens);
 			return true;
 		} else {
 			return true;

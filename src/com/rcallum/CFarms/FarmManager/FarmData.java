@@ -2,6 +2,7 @@ package com.rcallum.CFarms.FarmManager;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,7 +15,10 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import com.rcallum.CFarms.CandyFarms;
+import com.rcallum.CFarms.FastGrowing.Growth;
+import com.rcallum.CFarms.items.CandyItems;
 import com.rcallum.CFarms.items.Farm;
+import com.rcallum.CFarms.items.SeedMaker;
 
 public class FarmData {
 	private static FarmData instance;
@@ -95,6 +99,35 @@ public class FarmData {
 	@SuppressWarnings("deprecation")
 	public void removeFarmAndData(Player p, String locID) {
 		ConfigurationSection sec = data.getConfigurationSection("Farms").getConfigurationSection(locID);
+		
+		//Remove all seeds
+		for (String location : sec.getStringList("Planted")) {
+			String[] split = location.split("__");
+			
+				Location loc = PendingFarmData.getInstance().stringToLoc(split[0]);
+				int stage = Growth.getInstance().getState(loc);
+				if (stage != 7) {
+					p.getInventory().addItem(SeedMaker.getInstance().getItem(split[2], split[1]));
+				} else {
+					p.getInventory().addItem(CandyItems.getInstance().getItem(split[1]));
+					int chance = CandyFarms.config.getInt("SeedConfigs.SeedBackChance");
+					if (chance != 0) {
+						Random r = new Random();
+						int random = r.nextInt(101);
+						if ((random < chance) || (chance == 100)) {
+							p.getInventory()
+									.addItem(SeedMaker.getInstance().getItem(split[2], split[1]));
+						}
+					}
+				}
+				FarmData.getInstance().removePlanted(locID, location,
+						PendingFarmData.getInstance().stringToLoc(split[0]));
+
+			
+		}
+		
+		
+		
 		String dir = sec.getString("Direction");
 		String[] splitLoc = locID.split(",");
 		

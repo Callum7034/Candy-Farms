@@ -35,6 +35,16 @@ public class GrowAll {
 		}
 	}
 	
+	public void setToSeeded(Location loc) {
+		BlockState state = loc.getBlock().getState();
+		MaterialData data = state.getData();
+		if (data instanceof Crops) {
+			((Crops) data).setState(CropState.SEEDED);
+			state.setData(data);
+			state.update();
+		}
+	}
+	
 	public void doAll() {
 		if (!data.contains("Farms")) {
 			return;

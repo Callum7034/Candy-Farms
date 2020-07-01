@@ -1,6 +1,7 @@
 package com.rcallum.CFarms.GUIListeners;
 
 import java.util.HashMap;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -38,6 +39,21 @@ public class StorageGUI implements Listener {
 		String GUIName = color(config.getString("GUIName"));
 		if (e.getView().getTitle().equalsIgnoreCase(GUIName)) {
 			e.setCancelled(true);
+			if (e.getCurrentItem() == null) return;
+			if (e.getCurrentItem().getType() == Material.AIR) return;
+			if (!e.getCurrentItem().hasItemMeta()) return;
+			if (!e.getCurrentItem().getItemMeta().hasDisplayName()) return;
+			if (NBTHandler.getInstance().hasNBT(e.getCurrentItem(), "CandyItem")) {
+				String locID = NBTHandler.getInstance().getNBT(e.getClickedInventory().getItem(0), "UUID");
+				String candyName = NBTHandler.getInstance().getNBT(e.getCurrentItem(), "CandyItem");
+				int amount = getItemAmount(locID, candyName);
+				if (amount > 64) amount = 64;
+				removeItem(locID, candyName, amount);
+				ItemStack candy = CandyItems.getInstance().getItem(candyName);
+				candy.setAmount(amount);
+				e.getWhoClicked().getInventory().addItem(candy);
+				openGUI((Player) e.getWhoClicked(), locID);
+			}
 		}
 	}
 
@@ -100,7 +116,39 @@ public class StorageGUI implements Listener {
 		} else {
 			sec.set(candyName, 1);
 		}
+		CandyFarms.getInstance().saveData();
 	}
+	public int getItemAmount(String farmID, String candyName) {
+		int amount = 0;
+		ConfigurationSection sec = data.getConfigurationSection("Farms." + farmID);
+		if (!sec.contains("Storage")) {
+			sec.createSection("Storage");
+		}
+		sec = sec.getConfigurationSection("Storage");
+		if (sec.contains(candyName)) {
+			amount = sec.getInt(candyName);
+		}
+		return amount;
+	}
+	public void removeItem(String farmID, String candyName, int amount) {
+		ConfigurationSection sec = data.getConfigurationSection("Farms." + farmID);
+		if (!sec.contains("Storage")) {
+			sec.createSection("Storage");
+		}
+		sec = sec.getConfigurationSection("Storage");
+		int cAmt = sec.getInt(candyName);
+		int remove = (cAmt - amount);
+		if (remove <= 0) {
+			sec.set(candyName, null);
+			Set<String> keys = sec.getKeys(false);
+			keys.remove(candyName);
+		} else {
+			sec.set(candyName, remove);
+		}
+		
+		CandyFarms.getInstance().saveData();
+	}
+	
 	public String color(String input) {
 		return ChatColor.translateAlternateColorCodes('&', input);
 	}

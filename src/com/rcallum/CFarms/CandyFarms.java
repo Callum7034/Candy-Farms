@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.rcallum.CFarms.Commands.CommandHandler;
 import com.rcallum.CFarms.Commands.ListSeeds;
+import com.rcallum.CFarms.FarmManager.MinionManager;
 import com.rcallum.CFarms.FastGrowing.GrowAll;
 import com.rcallum.CFarms.GUIListeners.MinionGUI;
 import com.rcallum.CFarms.GUIListeners.StorageGUI;
@@ -98,7 +99,7 @@ public class CandyFarms extends JavaPlugin {
 			@Override
 			public void run() {
 				GrowAll.getInstance().doAll();
-				tshopFile.saveConfig();
+				MinionManager.getInstance().runMinionCheck();
 			}
 			
 		}, 0L, delay);
