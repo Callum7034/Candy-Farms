@@ -17,6 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import com.rcallum.CFarms.CandyFarms;
 import com.rcallum.CFarms.FarmManager.FarmData;
+import com.rcallum.CFarms.MinionManager.ArmorStandMinion;
 import com.rcallum.CFarms.items.MinionItem;
 import com.rcallum.CFarms.utils.NBTHandler;
 
@@ -68,6 +69,7 @@ public class MinionGUI implements Listener {
 							}
 							p.updateInventory();
 							FarmData.getInstance().addMinion(locID);
+							ArmorStandMinion.getInstance().spawnArmorStand(locID);
 							p.sendMessage(color(CandyFarms.messages.getString("MinionAdded")));
 							openGUI(p, locID);
 							return;
@@ -80,6 +82,7 @@ public class MinionGUI implements Listener {
 			if (clickedSlot == removeSlot) {
 				if (FarmData.getInstance().hasMinion(locID)) {
 					FarmData.getInstance().removeMinion(locID);
+					ArmorStandMinion.getInstance().removeArmorStand(locID);
 					p.getInventory().addItem(MinionItem.minionItem);
 					p.sendMessage(color(CandyFarms.messages.getString("MinionRemoved")));
 					openGUI(p, locID);

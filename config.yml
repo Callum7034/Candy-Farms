@@ -26,6 +26,12 @@ placementCancel: '&6&l[!] &cCancel placement'
 #Time to take before server grows each crop. (In ticks)
 growDelay: 100
 
+#Physical Minion settings
+#name must be less than 16 chars
+MinionName: '&bFarmer Minion'
+
+
+
 
 #GUI that opens when you click on the farm block
 Farm_Menu:

@@ -3,6 +3,9 @@ membersGUIAddMessage: '&4&lPlease type members name into chat'
 membersGUIAddSuccess: '&bPlayer Added!'
 membersGUIAddError: '&c&lPlayer does not exsit or is not online'
 membersRemove: '&7&l(&2&l!&7&l) &bPlayer has been remove from your farm'
+
+cannotPlaceFarmHere: '&7&l(&2&l!&7&l) &cYou cannot place that farm here' 
+
 cannotPlaceBlockHere: '&7&l(&2&l!&7&l) &cYou cannot place that block here'
 cannotBreakBlockHere: '&7&l(&2&l!&7&l) &cYou cannot break that block here'
 cannotPlantHere: '&7&l(&2&l!&7&l) &cYou cannot plant that seed here'

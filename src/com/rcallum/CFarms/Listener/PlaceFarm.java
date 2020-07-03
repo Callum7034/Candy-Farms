@@ -2,6 +2,7 @@ package com.rcallum.CFarms.Listener;
 
 import java.util.ArrayList;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -15,6 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.rcallum.CFarms.CandyFarms;
 import com.rcallum.CFarms.FarmManager.PendingFarmData;
+import com.rcallum.CFarms.WorldGuard.RegionChecks;
 
 public class PlaceFarm implements Listener{
 	@EventHandler
@@ -26,7 +28,13 @@ public class PlaceFarm implements Listener{
 			if (!p.getItemInHand().getItemMeta().hasDisplayName()) return;
 			if (p.getItemInHand().getItemMeta().getDisplayName().replaceAll("§", "&").equalsIgnoreCase(cs.getString("Name"))) {
 				Location l = e.getClickedBlock().getRelative(e.getBlockFace()).getLocation();
-				drawOutline(p, l);
+				String farmID = PendingFarmData.getInstance().locToString(l);
+				if (RegionChecks.getInstance().farmRegionPerms(farmID, p)) {
+					drawOutline(p, l);
+				} else {
+					p.sendMessage(ChatColor.translateAlternateColorCodes('&', CandyFarms.messages.getString("cannotPlaceFarmHere")));
+				}
+				
 				e.setCancelled(true);
 			}
 			
